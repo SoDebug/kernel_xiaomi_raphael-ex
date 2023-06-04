@@ -1,4 +1,4 @@
-name: Build Kernel(No KernelSU)
+name: Build Kernel(Official)
 on:
   repository_dispatch:
   workflow_dispatch:
