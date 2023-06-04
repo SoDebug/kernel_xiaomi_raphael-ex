@@ -7,8 +7,8 @@ on:
     # - "tiramisu"
 
 env: 
-  CheckOut_DIR: /home/runner/work/kernel_xiaomi_raphael/kernel_xiaomi_raphael
-  AnyKernel: /home/runner/work/kernel_xiaomi_raphael/AnyKernel
+  CheckOut_DIR: /home/runner/work/kernel_xiaomi_raphael-ex/kernel_xiaomi_raphael-ex
+  AnyKernel: /home/runner/work/kernel_xiaomi_raphael-ex/AnyKernel
   
 jobs:
   KSUForRaphael:
