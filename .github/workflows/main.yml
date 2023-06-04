@@ -7,8 +7,8 @@ on:
     # - "tiramisu"
 
 env: 
-  CheckOut_DIR: /home/runner/work/kernel_xiaomi_raphael/kernel_xiaomi_raphael
-  AnyKernel: /home/runner/work/kernel_xiaomi_raphael/AnyKernel
+  CheckOut_DIR: /home/runner/work/kernel_xiaomi_raphael-ex/kernel_xiaomi_raphael-ex
+  AnyKernel: /home/runner/work/kernel_xiaomi_raphael-ex/AnyKernel
   
 jobs:
   KSUForRaphael:
@@ -77,7 +77,7 @@ jobs:
           echo "SoDebug Kernel Config：" >> release.txt
           echo "机型代号:raphael" >> release.txt
           echo "机型名称：Redmi K20 Pro | Mi 9T Pro" >> release.txt
-          echo "内核源码：https://github.com/SOVIET-ANDROID/kernel_xiaomi_raphael.git" >> release.txt
+          echo "内核源码：https://github.com/Evolution-X-Devices/kernel_xiaomi_raphael.git" >> release.txt
           echo "内核源码分支：13.0" >> release.txt
           echo "源码最近提交信息:" >> release.txt        
           echo "${{ env.useVersionInfo }}" >> release.txt
