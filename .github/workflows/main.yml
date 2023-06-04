@@ -40,6 +40,7 @@ jobs:
           echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
 
       - name: Remove Old KernelSU Files
+        id: remove_old_kernelsu_file
         run: |
           rm -rf drivers/staging/kernelsu && rm -rf .git/module/*
           
@@ -48,6 +49,7 @@ jobs:
           curl -LSs "https://raw.githubusercontent.com/SoDebug/KernelSU/SOVIET-ANDROID_dev/kernel/setup.sh" | bash -s v0.5.x_dev_SOVIET-ANDROID
 
       - name: Compiling Kernel
+        id: compile
         run: |
           CLANG=~/clang/bin
           GCC32=~/arm-linux-androideabi-4.9/bin
@@ -63,14 +65,24 @@ jobs:
           make LLVM=1 LLVM_IAS=1 CC="ccache clang" -j$(grep -c ^processor /proc/cpuinfo)
           
       - name: Packaging the Kernel
+        id: package
+        if: steps.compile.outputs.status == 'success'
         run: |
           cp -v ${{ env.CheckOut_DIR }}/out/arch/arm64/boot/Image.gz-dtb ${{ env.AnyKernel }} &&
           cp -v ${{ env.CheckOut_DIR }}/out/arch/arm64/boot/dtbo.img ${{ env.AnyKernel }}/o &&
           cd ${{ env.AnyKernel }} &&
           7z a -mx9 Raphael-Kernel_KSU_Manully_EX13.zip *
+          
+      - name: Upload output_files directory
+        uses: actions/upload-artifact@main
+        if: steps.compile.outputs.status == 'success' && steps.package.outputs.status == 'success'
+        with:
+          name: Raphael-Kernel_KSU_Manully_EX13.zip
+          path: ${{ env.AnyKernel }}/Raphael-Kernel_KSU_Manully_EX13.zip
 
       - name: Generate release tag
         id: tag
+        if: steps.compile.outputs.status == 'success' && steps.package.outputs.status == 'success'
         run: |
           echo "release_tag=$(date +"%Y%m%d")" >> $GITHUB_OUTPUT
           touch release.txt
