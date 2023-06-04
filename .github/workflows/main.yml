@@ -2,9 +2,9 @@ name: Build Kernel
 on:
   repository_dispatch:
   workflow_dispatch:
-  push:
-    branches:
-    - "tiramisu"
+  # push:
+    # branches:
+    # - "tiramisu"
 
 env: 
   CheckOut_DIR: /home/runner/work/kernel_xiaomi_raphael/kernel_xiaomi_raphael
