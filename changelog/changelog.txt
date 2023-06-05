@@ -1,0 +1,7 @@
+2023/06/05
+-Kernel Source:
+  no change, 
+  head commit id: c4be8472bc520c176f5c977a1f4ada658f915a86: Revert "raphael_defconfig: enable userfaultfd" 
+-KernelSU Source
+  manager: change minimal CAP to DAC_READ_SEARCH,
+  head commit id: 27ccfa639553651c7a8cbea63a09a03d4dfcc371: manager: change minimal CAP to DAC_READ_SEARCH
