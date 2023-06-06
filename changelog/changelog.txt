@@ -4,7 +4,7 @@
 -KernelSU source:
   no change,
 -Other:
-  use clang_dev to complie kernel source
+  using clang_dev compling kernel source
 
 2023/06/05
 -Kernel Source:
