@@ -1,3 +1,11 @@
+2023/06/06
+-Kernel Source:
+  no change,
+-KernelSU source:
+  no change,
+-Other:
+  use clang_dev to complie kernel source
+
 2023/06/05
 -Kernel Source:
   no change, 
