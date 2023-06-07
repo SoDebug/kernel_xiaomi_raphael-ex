@@ -8,8 +8,6 @@ on:
 
 env: 
   CheckOut_DIR: /home/runner/work/kernel_xiaomi_raphael-ex/kernel_xiaomi_raphael-ex
-  Work_DIR: /home/runner/work/kernel_xiaomi_raphael-ex
-  Clang_DIR: /home/runner/work/kernel_xiaomi_raphael-ex/clang
   AnyKernel: /home/runner/work/kernel_xiaomi_raphael-ex/AnyKernel
   
 jobs:
@@ -29,10 +27,10 @@ jobs:
 
       - name: Cloning Sources and Toolchain
         run: |
-          git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master --depth=1 $Clang_DIR
+          git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 --depth=1 -b master ~/clang
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
-          git clone https://github.com/SoDebug/AnyKernel.git ${{ env.AnyKernel }}
+          git clone https://github.com/onettboots/boolx_anykernel.git ${{ env.AnyKernel }}
 
       - name: CheckOut Kernel Tree
         uses: actions/checkout@v3.5.2
@@ -52,14 +50,20 @@ jobs:
           
       - name: Integrate KernelSU 
         run: 
-          curl -LSs "https://raw.githubusercontent.com/SoDebug/KernelSU/SOVIET-ANDROID_dev/kernel/setup.sh" | bash -s v0.5.x_dev_SOVIET-ANDROID          
+          curl -LSs "https://raw.githubusercontent.com/SoDebug/KernelSU/SOVIET-ANDROID_dev/kernel/setup.sh" | bash -s v0.6.0       
 
       - name: Compiling Kernel
         id: compile
         run: |
-          CLANG=$Clang_DIR/clang-r487747c/bin
-          CROSS_COMPILE=$Clang_DIR/clang-r487747c/bin/aarch64-linux-gnu-
-          CROSS_COMPILE_ARM32=$Clang_DIR/clang-r487747c/bin/arm-linux-gnueabi-
+          CLANG=~/clang/clang-r487747c/bin
+          GCC32=~/arm-linux-androideabi-4.9/bin
+          GCC64=~/aarch64-linux-android-4.9/bin
+          PATH=$CLANG:$GCC64:$GCC32:$PATH
+          export PATH
+          export ARCH=arm64
+          export CLANG_TRIPLE=aarch64-linux-gnu
+          export CROSS_COMPILE=aarch64-linux-android-
+          export CROSS_COMPILE_ARM32=arm-linux-androideabi-
           output_dir=out
           make LLVM=1 LLVM_IAS=1 CC="ccache clang" raphael_defconfig
           make LLVM=1 LLVM_IAS=1 CC="ccache clang" -j$(grep -c ^processor /proc/cpuinfo)
