@@ -1,3 +1,11 @@
+2023/06/07
+-Kernel Source:
+  no change,
+-KernelSU source:
+  no change,
+-Other:
+  using clang(clang-r487747c): https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/refs/heads/master/
+
 2023/06/06
 -Kernel Source:
   no change,
