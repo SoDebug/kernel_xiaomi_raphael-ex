@@ -9,6 +9,7 @@ on:
 env: 
   CheckOut_DIR: /home/runner/work/kernel_xiaomi_raphael-ex/kernel_xiaomi_raphael-ex
   Work_DIR: /home/runner/work/kernel_xiaomi_raphael-ex
+  Clang_DIR: /home/runner/work/kernel_xiaomi_raphael-ex/clang
   AnyKernel: /home/runner/work/kernel_xiaomi_raphael-ex/AnyKernel
   
 jobs:
@@ -28,7 +29,7 @@ jobs:
 
       - name: Cloning Sources and Toolchain
         run: |
-          git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master --depth=1 {{ env.Work_DIR }}/clang
+          git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master --depth=1 {{ env.Clang_DIR }}
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
           git clone https://github.com/SoDebug/AnyKernel.git ${{ env.AnyKernel }}
@@ -56,9 +57,9 @@ jobs:
       - name: Compiling Kernel
         id: compile
         run: |
-          CLANG={{ env.Work_DIR }}/clang/clang-r487747c/bin
-          CROSS_COMPILE={{ env.Work_DIR }}/clang/clang-r487747c/bin/aarch64-linux-gnu-
-          CROSS_COMPILE_ARM32={{ env.Work_DIR }}/clang/clang-r487747c/bin/arm-linux-gnueabi-
+          CLANG={{ env.Clang_DIR }}/clang-r487747c/bin
+          CROSS_COMPILE={{ env.Work_DIR }}/clang-r487747c/bin/aarch64-linux-gnu-
+          CROSS_COMPILE_ARM32={{ env.Work_DIR }}/clang-r487747c/bin/arm-linux-gnueabi-
           output_dir=out
           make LLVM=1 LLVM_IAS=1 CC="ccache clang" raphael_defconfig
           make LLVM=1 LLVM_IAS=1 CC="ccache clang" -j$(grep -c ^processor /proc/cpuinfo)
