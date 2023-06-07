@@ -2,7 +2,7 @@
 -Kernel Source:
   no change,
 -KernelSU source:
-  no change,
+  use v0.6.0,
 -Other:
   using clang(clang-r487747c): https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+/refs/heads/master/
   Compile entirely with clang(clang-r487747c)
