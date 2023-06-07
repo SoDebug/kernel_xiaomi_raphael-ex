@@ -57,9 +57,9 @@ jobs:
       - name: Compiling Kernel
         id: compile
         run: |
-          CLANG={{ env.Clang_DIR }}/clang-r487747c/bin
-          CROSS_COMPILE={{ env.Work_DIR }}/clang-r487747c/bin/aarch64-linux-gnu-
-          CROSS_COMPILE_ARM32={{ env.Work_DIR }}/clang-r487747c/bin/arm-linux-gnueabi-
+          CLANG=$Clang_DIR/clang-r487747c/bin
+          CROSS_COMPILE=$Clang_DIR/clang-r487747c/bin/aarch64-linux-gnu-
+          CROSS_COMPILE_ARM32=$Clang_DIR/clang-r487747c/bin/arm-linux-gnueabi-
           output_dir=out
           make LLVM=1 LLVM_IAS=1 CC="ccache clang" raphael_defconfig
           make LLVM=1 LLVM_IAS=1 CC="ccache clang" -j$(grep -c ^processor /proc/cpuinfo)
