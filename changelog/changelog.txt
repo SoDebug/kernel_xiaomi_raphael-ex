@@ -1,3 +1,11 @@
+2023/06/17
+-Kernel Source:
+  no change,
+-KernelSU source:
+  use v0.7.x: Update Indonesian translation 
+-Other:
+  no change,
+
 2023/06/07
 -Kernel Source:
   no change,
